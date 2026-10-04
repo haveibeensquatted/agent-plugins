@@ -1,0 +1,20 @@
+{
+  "$schema": "https://www.schemastore.org/claude-code-marketplace.json",
+  "name": "haveibeensquatted",
+  "owner": {
+    "name": "Have I Been Squatted",
+    "url": "https://haveibeensquatted.com"
+  },
+  "metadata": {
+    "description": "Have I Been Squatted plugins for AI agents.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "haveibeensquatted",
+      "description": "Analyze domains, hunt lookalikes, search certificate transparency and triage your organization's detections.",
+      "source": "./plugins/haveibeensquatted",
+      "category": "security"
+    }
+  ]
+}
