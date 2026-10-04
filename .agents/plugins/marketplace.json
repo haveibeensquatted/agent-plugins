@@ -1,0 +1,20 @@
+{
+  "name": "haveibeensquatted",
+  "interface": {
+    "displayName": "Have I Been Squatted"
+  },
+  "plugins": [
+    {
+      "name": "haveibeensquatted",
+      "source": {
+        "source": "local",
+        "path": "./plugins/haveibeensquatted"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Security"
+    }
+  ]
+}

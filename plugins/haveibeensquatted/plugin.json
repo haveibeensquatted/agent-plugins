@@ -1,0 +1,37 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "haveibeensquatted",
+  "version": "0.1.0",
+  "description": "Analyze domains, hunt lookalikes, search certificate transparency and triage your organization's detections.",
+  "author": {
+    "name": "Have I Been Squatted",
+    "url": "https://haveibeensquatted.com"
+  },
+  "homepage": "https://haveibeensquatted.com",
+  "repository": "https://github.com/haveibeensquatted/agent-plugins",
+  "license": "MIT",
+  "keywords": ["security", "typosquatting", "lookalike-domains", "certificate-transparency", "threat-intelligence", "mcp"],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Have I Been Squatted",
+        "shortDescription": "Catch attacker infrastructure",
+        "longDescription": "Analyze any domain live, scan for typosquats and unregistered lookalikes, search certificate transparency logs, and query and triage your organization's lookalike detections. Requires a Have I Been Squatted account; every call is scoped to the organization you choose when you sign in.",
+        "developerName": "Have I Been Squatted",
+        "category": "Security",
+        "capabilities": ["Read", "Write"],
+        "websiteURL": "https://haveibeensquatted.com",
+        "privacyPolicyURL": "https://haveibeensquatted.com/about/privacy",
+        "termsOfServiceURL": "https://haveibeensquatted.com/about/terms",
+        "defaultPrompt": [
+          "Triage this week's lookalike detections for my organization and flag the ones that look malicious",
+          "Search certificate transparency for new certificates imitating my company's domain in the last 30 days",
+          "Analyze this suspicious domain and tell me whether it looks like phishing infrastructure"
+        ],
+        "brandColor": "#0A0A0A",
+        "composerIcon": "./assets/icon.png",
+        "logo": "./assets/logo.png"
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+name: validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+
+      - name: Manifest consistency and Agent Plugins schemas
+        run: npm run check
+
+      - name: Claude Code
+        run: npx -y @anthropic-ai/claude-code@latest plugin validate --strict .
+
+      # Install into throwaway homes, so a marketplace or manifest a client
+      # can't read fails here rather than for users.
+      - name: Codex
+        run: |
+          export HOME="$RUNNER_TEMP/codex" CODEX_HOME="$RUNNER_TEMP/codex/.codex"
+          mkdir -p "$CODEX_HOME"
+          npx -y @openai/codex@latest plugin marketplace add "$GITHUB_WORKSPACE"
+          for p in $(jq -r '.plugins[].name' .agents/plugins/marketplace.json); do
+            npx -y @openai/codex@latest plugin add "$p@haveibeensquatted"
+          done
+          npx -y @openai/codex@latest mcp list
+
+      - name: Copilot CLI
+        run: |
+          export HOME="$RUNNER_TEMP/copilot"
+          mkdir -p "$HOME"
+          npx -y @github/copilot@latest plugin marketplace add "$GITHUB_WORKSPACE"
+          for p in $(jq -r '.plugins[].name' .claude-plugin/marketplace.json); do
+            npx -y @github/copilot@latest plugin install "$p@haveibeensquatted"
+          done
+          npx -y @github/copilot@latest plugin list
