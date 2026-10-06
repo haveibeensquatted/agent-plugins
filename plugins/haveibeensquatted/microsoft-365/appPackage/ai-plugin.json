@@ -1,0 +1,25 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.4/schema.json",
+  "schema_version": "v2.4",
+  "name_for_human": "Have I Been Squatted",
+  "namespace": "haveibeensquatted",
+  "description_for_human": "Analyze domains, hunt lookalikes and triage your organization's detections.",
+  "description_for_model": "Have I Been Squatted tools for lookalike domains and phishing infrastructure: live analysis of one domain, typosquat and unregistered lookalike scans, certificate transparency search, and querying, tagging and rule management for the signed-in organization's detections. Use them whenever the user asks about a suspicious domain, typosquats or lookalikes of their brand, certificates imitating a brand, or their organization's detections and rules.",
+  "contact_email": "support@haveibeensquatted.com",
+  "legal_info_url": "https://haveibeensquatted.com/about/terms",
+  "privacy_policy_url": "https://haveibeensquatted.com/about/privacy",
+  "functions": [],
+  "runtimes": [
+    {
+      "type": "RemoteMCPServer",
+      "auth": {
+        "type": "OAuthPluginVault",
+        "reference_id": "${{HAVEIBEENSQUATTED_AUTH_CONFIG_ID}}"
+      },
+      "spec": {
+        "url": "https://mcp.haveibeensquatted.com/mcp"
+      },
+      "run_for_functions": ["*"]
+    }
+  ]
+}
