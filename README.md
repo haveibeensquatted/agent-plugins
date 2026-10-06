@@ -31,6 +31,8 @@ copilot plugin marketplace add haveibeensquatted/agent-plugins
 copilot plugin install haveibeensquatted@haveibeensquatted
 ```
 
+**Microsoft 365 Copilot.** Once the listing is live, add **Have I Been Squatted** from the Agent Store in Copilot, or ask your Microsoft 365 admin to deploy it. It works in Copilot Chat without a Microsoft 365 Copilot license. To build and sideload the app package, see [`plugins/haveibeensquatted/microsoft-365`](plugins/haveibeensquatted/microsoft-365/README.md).
+
 **Any other MCP client.** Add `https://mcp.haveibeensquatted.com/mcp` as a remote (Streamable HTTP) server. It uses OAuth with dynamic client registration, so no client ID is needed.
 
 ## Tools
@@ -61,13 +63,14 @@ plugins/haveibeensquatted/
   .claude-plugin/plugin.json         Claude Code manifest
   .mcp.json                          Claude Code MCP config (type "http")
   assets/                            icon (256 px) and logo (1024 px)
+  microsoft-365/appPackage/          Microsoft 365 app package: declarative agent with the MCP server as its action
 ```
 
-Shared fields must match across both pairs: name, version, description, MCP server names and URLs. `npm run check` enforces that, validates the Agent Plugins schemas, and checks that both marketplaces list every plugin. CI also runs `claude plugin validate --strict` and installs the marketplace with the Codex and Copilot CLIs.
+Shared fields must match across both pairs: name, version, description, MCP server names and URLs. `npm run check` enforces that, validates the Agent Plugins schemas, and checks that both marketplaces list every plugin. It also validates the Microsoft 365 package against Microsoft's schemas and store naming rules, and checks that its MCP URL matches `mcp.json`. CI also runs `claude plugin validate --strict` and installs the marketplace with the Codex and Copilot CLIs.
 
 ## Releasing
 
-Bump `version` in both `plugin.json` files together. Claude Code and Codex keep users on the installed version until it changes.
+Bump `version` in both `plugin.json` files together. Claude Code and Codex keep users on the installed version until it changes. The Microsoft 365 package has its own `version` in `manifest.json`, bumped for each store submission.
 
 The MCP server's tools ship from the server, not from this repository, so a tool change needs no release here. Release only when a manifest, asset or skill changes.
 
