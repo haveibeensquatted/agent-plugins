@@ -14,7 +14,7 @@
       "type": "RemoteMCPServer",
       "auth": {
         "type": "OAuthPluginVault",
-        "reference_id": "${{HAVEIBEENSQUATTED_AUTH_CONFIG_ID}}"
+        "reference_id": "ZmZjODBjOTQtYzU3Ni00ZjNiLWE4ODItMDkwMTM0ODdjMDNmIyMxMDkzNWNhMy0xNDQxLTQzOGYtYjU2My1hOGM1ODg4OTEyODg="
       },
       "spec": {
         "url": "https://mcp.haveibeensquatted.com/mcp"

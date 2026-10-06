@@ -24,7 +24,7 @@ jobs:
 
       - name: Microsoft 365 app package
         run: |
-          HAVEIBEENSQUATTED_AUTH_CONFIG_ID=ci npm run package:m365
+          npm run package:m365
           unzip -t dist/haveibeensquatted-m365-*.zip
 
       - name: Claude Code
