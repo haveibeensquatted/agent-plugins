@@ -1,42 +1,22 @@
 # Microsoft 365 Copilot
 
-`appPackage/` is a Microsoft 365 app package holding one declarative agent. The agent's only action is the hosted MCP server, so Copilot's own model calls the server's tools. There is no bot and no Azure resource.
+`appPackage/` is a Microsoft 365 app package holding one declarative agent. The agent's only action is the hosted MCP server, so Copilot's own model calls the server's tools.
 
 | File | Schema | What it holds |
 | --- | --- | --- |
-| `manifest.json` | App manifest 1.30 | Store identity: app ID, developer, names, descriptions, icons |
+| `manifest.json` | App manifest 1.30 | App ID, developer, names, descriptions, icons |
 | `declarativeAgent.json` | Declarative agent 1.8 | Instructions, conversation starters, the one action |
 | `ai-plugin.json` | Plugin manifest 2.4 | `RemoteMCPServer` runtime for `https://mcp.haveibeensquatted.com/mcp` with dynamic tool discovery |
-| `color.png`, `outline.png` | | 192 px tile and 32 px white-on-transparent outline |
+| `color.png`, `outline.png` | | 192 px tile and 32 px outline |
 
-The plugin uses dynamic tool discovery (`functions: []`, `run_for_functions: ["*"]`). Copilot calls `tools/list` with the signed-in user's token, so each organization sees the tools its plan includes, and a new tool needs no resubmission. Copilot screens every new or changed tool definition before activating it.
+Tools are discovered at runtime, so each organization sees the tools its plan includes and a new tool needs no new package. Users sign in with their Have I Been Squatted account the first time a tool runs.
 
-The app `id` (`119486df-be42-486a-b1c7-05263cefd7e2`) is the listing's permanent identity. Never change it. Bump `version` in `manifest.json` for each store submission. That version is separate from the plugin version in `plugin.json`.
+Keep the app `id` in `manifest.json` unchanged. Bump that file's `version` for each store submission. It is separate from the plugin version in `plugin.json`.
 
-## Sign-in
-
-Copilot signs users in to Clerk through an auth config stored in Microsoft's token vault. `ai-plugin.json` references the auth config by ID as `${{HAVEIBEENSQUATTED_AUTH_CONFIG_ID}}`, which `npm run package:m365` fills in.
-
-Set it up once:
-
-1. **Clerk.** Create an OAuth application on the production instance.
-   - Redirect URIs: `https://teams.microsoft.com/api/platform/v1.0/oAuthRedirect`, plus `https://vscode.dev/redirect` if Agents Toolkit will fetch tools.
-   - Scopes: `user:org:read org:read results:annotate lookups:run rules:write offline_access`.
-   - Use a confidential client (it has a secret) and keep PKCE on.
-
-   Use a static client rather than dynamic client registration. Copilot's dynamic registration runs once, at provisioning, so it yields one shared client anyway. A static client is one we named, it shows by name in the `mcp_call` audit rows, and Teams Developer Portal can manage it. Portal can't yet manage dynamically registered configs.
-2. **Teams Developer Portal** → Tools → OAuth client registration.
-   - Base URL: `https://mcp.haveibeensquatted.com/mcp`.
-   - **Restrict usage by org:** Any Microsoft 365 organization.
-   - **Restrict usage by app:** Any Teams app. A registration bound to an app ID makes every tool call return 404.
-   - Authorization, token and refresh endpoints come from `https://clerk.haveibeensquatted.com/.well-known/oauth-authorization-server`.
-   - Enter the Clerk client ID and secret and the scopes above. Keep PKCE enabled.
-   - Saving the registration produces the auth config ID.
-
-## Build and sideload
+## Build
 
 ```sh
-HAVEIBEENSQUATTED_AUTH_CONFIG_ID=<auth config ID> npm run package:m365
+npm run package:m365
 ```
 
 This writes `dist/haveibeensquatted-m365-<version>.zip`, a flat zip of `appPackage/` with the placeholders filled in. To sideload it, go to Teams → Apps → Manage your apps → Upload an app. The tenant needs custom app upload enabled. Then open the agent at `https://m365.cloud.microsoft/chat`. Run the zip through Developer Portal's [store validation](https://dev.teams.microsoft.com/tools/store-validation) before every submission.

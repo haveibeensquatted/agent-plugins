@@ -1,34 +1,17 @@
 // Builds the Microsoft 365 app package: the files in microsoft-365/appPackage, zipped
-// flat, with ${{NAME}} placeholders filled from the environment. Microsoft 365
-// Copilot reads the zip from Teams Developer Portal, Agents Toolkit or Partner Center.
-//
-//   HAVEIBEENSQUATTED_AUTH_CONFIG_ID=... npm run package:m365
+// flat. Microsoft 365 Copilot reads the zip from Teams Developer Portal, Agents Toolkit
+// or Partner Center.
 import { readFileSync, readdirSync, mkdirSync, writeFileSync } from "node:fs";
-import { join, extname } from "node:path";
+import { join } from "node:path";
 import { crc32, deflateRawSync } from "node:zlib";
 
 const root = new URL("..", import.meta.url).pathname;
 const source = join(root, "plugins/haveibeensquatted/microsoft-365/appPackage");
 const manifest = JSON.parse(readFileSync(join(source, "manifest.json"), "utf8"));
 
-const missing = new Set();
-const fill = (text) =>
-  text.replace(/\$\{\{([A-Z0-9_]+)\}\}/g, (_, name) => {
-    const value = process.env[name];
-    if (!value) missing.add(name);
-    return value ?? "";
-  });
-
 const entries = readdirSync(source)
   .sort()
-  .map((name) => {
-    const raw = readFileSync(join(source, name));
-    return { name, data: extname(name) === ".json" ? Buffer.from(fill(raw.toString("utf8"))) : raw };
-  });
-if (missing.size) {
-  console.error(`✘ set ${[...missing].join(", ")} (the Teams Developer Portal auth config ID)`);
-  process.exit(1);
-}
+  .map((name) => ({ name, data: readFileSync(join(source, name)) }));
 
 // A minimal zip writer (deflate, no directories), so the package needs no dependency.
 const local = [];
