@@ -54,21 +54,6 @@ This writes `dist/haveibeensquatted-m365-<version>.zip`, a flat zip of `appPacka
 
 Copilot supports fullscreen but not the sidebar, and it doesn't send `host-context-changed`. The view already falls back on both.
 
-## Store submission
-
-Submit the zip as a Microsoft 365 app offer in Partner Center under the Microsoft 365 and Copilot program. The rules that apply most to this agent, from Microsoft's [agent validation guidelines](https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/deploy-and-publish/appsource/prepare/review-copilot-validation-guidelines):
-
-- **Latency and availability.** p50 ≤ 2 s, p75 ≤ 5 s, p99 ≤ 9 s, and 99.9% of calls must return a meaningful response. Long work runs as jobs, so `tools/call` stays fast. `ct_search` can take up to its 20 s deadline on a weak pattern, and that is the tool to watch.
-- **Confirmation.** Copilot asks before calling any tool with `readOnlyHint: false`. The instructions also tell the model to state the change first.
-- **Citations.** Responses must name their sources. The instructions require naming the domain behind every finding.
-- **Coverage.** Every tool needs a prompt in the starters, the instructions or the test notes (below).
-- **Screenshots.** At least one listing screenshot must show the agent in Copilot.
-- **Compatibility.** The agent must work in Teams desktop and web, copilot.microsoft.com, and Copilot in Word.
-
-### Test notes for reviewers
-
-Give reviewers a Business-plan test organization with `mcp_automation` enabled and at least one monitored domain with recent detections, so every tool is listed. Sign in with the test account when Copilot asks, and pick the test organization.
-
 | Tool | Prompt |
 | --- | --- |
 | `whoami` | Which Have I Been Squatted account and organization am I connected to? |
