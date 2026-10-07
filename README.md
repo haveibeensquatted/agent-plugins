@@ -1,6 +1,6 @@
 # Have I Been Squatted agent plugins
 
-Plugins that connect AI agents to [Have I Been Squatted](https://haveibeensquatted.com): analyze any domain live, scan for typosquats and unregistered lookalikes, search certificate transparency, and query and triage your organization's lookalike detections.
+Plugins that connect AI agents to [Have I Been Squatted](https://haveibeensquatted.com): analyze any domain live, scan for typosquats and unregistered lookalikes, and search certificate transparency. With a monitoring plan, also query and triage your organization's detections and alerts, manage its monitored domains and detection rules, and open takedowns.
 
 The `haveibeensquatted` plugin connects the hosted MCP server at `https://mcp.haveibeensquatted.com/mcp`. You sign in with your Have I Been Squatted account the first time a tool runs and choose which organization to connect. Every call is scoped to that organization and to your role in it.
 
@@ -37,18 +37,30 @@ copilot plugin install haveibeensquatted@haveibeensquatted
 
 ## Tools
 
+**Lookups**, on every plan. Scans run as background jobs that take from seconds to about 15 minutes.
+
 | Tool | What it does |
 | --- | --- |
 | `analyze` | Live DNS, registration, hosting, HTTP and classification for one domain, with a verdict profile |
+| `squat` | Scan a domain for registered and live typosquats, ranked by evidence |
+| `discover` | Find unregistered lookalikes of a domain that could still be registered defensively |
 | `ct_search` | Search certificate transparency for names matching a regular expression |
-| `squat` | Scan a domain for registered and live typosquats, ranked by evidence (background job) |
-| `discover` | Find unregistered lookalikes of a domain (background job) |
-| `get_job` | Check on a background job and page through its results |
-| `query` | Query your organization's detections from the last 30 days |
-| `annotate_result` | Tag a detection as owned, ignored, false positive or malicious (organization admins) |
-| `describe_catalog`, `whoami` | Query-language reference, and the connected user, organization and role |
+| `get_job` | Check on a scan and page through its results |
+| `show_domain`, `show_domains` | Show a scanned domain, or a scan's results, as an interactive view with a screenshot and map |
 
-The server lists only the tools your organization's plan includes.
+**Your organization**, on Pro, Business and Enterprise plans.
+
+| Tool | What it does |
+| --- | --- |
+| `query`, `describe_catalog` | Search your lookalike results, Email Intelligence events or Site Canary events from the last 30 days, and the query language reference |
+| `annotate_result`, `add_result` | Tag a result as owned, ignored, false positive or malicious; add an analyzed domain to a monitored domain's results |
+| `list_alerts`, `get_alert`, `set_alert_status` | Review the alerts your rules raised, where each response was delivered, and triage them |
+| `list_domains`, `add_domains`, `update_domain`, `remove_domain` | Manage the domains you monitor and their detection settings |
+| `list_rules`, `get_rule`, `list_rule_actions`, `validate_rule`, `create_rule`, `update_rule`, `set_rule_enabled`, `delete_rule` | Read, write and test detection rules and their responses |
+| `list_takedowns`, `get_takedown`, `create_takedown`, `add_takedown_update`, `link_takedown` | Follow and open takedown cases (Takedowns add-on) |
+| `whoami` | The connected user, organization, plan, role and granted scopes |
+
+The server lists only the tools your organization's plan includes. Tools that change your organization's data need an organization admin, and the agent should confirm with you before calling them.
 
 ## Layout
 

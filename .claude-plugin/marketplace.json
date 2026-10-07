@@ -12,7 +12,7 @@
   "plugins": [
     {
       "name": "haveibeensquatted",
-      "description": "Analyze domains, hunt lookalikes, search certificate transparency and triage your organization's detections.",
+      "description": "Analyze domains, hunt lookalikes and search certificate transparency; triage your organization's detections and alerts, and manage its domains, rules and takedowns.",
       "source": "./plugins/haveibeensquatted",
       "category": "security"
     }
