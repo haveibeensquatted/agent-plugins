@@ -2,8 +2,8 @@
   "$schema": "https://www.schemastore.org/claude-code-plugin-manifest.json",
   "name": "haveibeensquatted",
   "displayName": "Have I Been Squatted",
-  "version": "0.2.0",
-  "description": "Analyze domains, hunt lookalikes and search certificate transparency; triage your organization's detections and alerts, and manage its domains, rules and takedowns.",
+  "version": "1.1.0",
+  "description": "Analyze domains, hunt lookalikes and search certificate transparency; triage your organization's detections and alerts, send responses to its connected tools, and manage its domains, rules and takedowns.",
   "author": {
     "name": "Have I Been Squatted",
     "url": "https://haveibeensquatted.com"
