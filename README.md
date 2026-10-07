@@ -58,6 +58,7 @@ copilot plugin install haveibeensquatted@haveibeensquatted
 | `list_domains`, `add_domains`, `update_domain`, `remove_domain` | Manage the domains you monitor and their detection settings |
 | `list_rules`, `get_rule`, `list_rule_actions`, `validate_rule`, `create_rule`, `update_rule`, `set_rule_enabled`, `delete_rule` | Read, write and test detection rules and their responses |
 | `list_takedowns`, `get_takedown`, `create_takedown`, `add_takedown_update`, `link_takedown` | Follow and open takedown cases (Takedowns add-on) |
+| `dispatch_action`, `list_dispatches` | Send one result to a connected security tool now, outside any rule, and check that it arrived |
 | `whoami` | The connected user, organization, plan, role and granted scopes |
 
 The server lists only the tools your organization's plan includes. Tools that change your organization's data need an organization admin, and the agent should confirm with you before calling them.

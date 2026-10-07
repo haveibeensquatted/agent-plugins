@@ -60,3 +60,5 @@ This writes `dist/haveibeensquatted-m365-<version>.zip`, a flat zip of `appPacka
 | `create_takedown` | Open a takedown for that phishing domain. |
 | `add_takedown_update` | Add a note to that takedown that the registrar suspended the domain, and mark it completed. |
 | `link_takedown` | Link that alert to the takedown. |
+| `list_rule_actions`, `dispatch_action` | Send that lookalike to Microsoft Sentinel as a high-severity indicator. |
+| `list_dispatches` | Did Sentinel accept it? |
