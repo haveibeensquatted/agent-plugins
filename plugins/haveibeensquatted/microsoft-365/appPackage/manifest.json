@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.30/MicrosoftTeams.schema.json",
   "manifestVersion": "1.30",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "id": "119486df-be42-486a-b1c7-05263cefd7e2",
   "developer": {
     "name": "Have I Been Squatted",
@@ -14,7 +14,7 @@
   },
   "description": {
     "short": "Analyze domains, hunt lookalikes and triage your organization's detections.",
-    "full": "Have I Been Squatted finds the lookalike domains attackers register to phish your customers and staff. This agent brings it into Microsoft 365 Copilot.\n\nAnalyze any domain live: DNS, registration, hosting, HTTP, page content and a phishing verdict, with a screenshot. Scan your domain for registered typosquats ranked by evidence, or for unregistered lookalikes worth defending. Search certificate transparency logs for new certificates that imitate your brand.\n\nWith a Pro, Business or Enterprise plan, query your organization's lookalike detections from the last 30 days, tag them as owned, ignored, false positive or malicious, and manage the detection rules that raise them.\n\nRequires a Have I Been Squatted account. You sign in the first time the agent runs a tool and choose which organization to connect. Every call is scoped to that organization and to your role in it, and the agent asks before it changes anything."
+    "full": "Have I Been Squatted finds the lookalike domains attackers register to phish your customers and staff. This agent brings it into Microsoft 365 Copilot.\n\nAnalyze any domain live: DNS, registration, hosting, HTTP, page content and a phishing verdict, with a screenshot. Scan your domain for registered typosquats ranked by evidence, or for unregistered lookalikes worth defending. Search certificate transparency logs for new certificates that imitate your brand.\n\nWith a Pro, Business or Enterprise plan, query your organization's lookalike detections from the last 30 days and tag them as owned, ignored, false positive or malicious; triage the alerts your detection rules raise and see where each response was delivered; manage your monitored domains and detection rules; and, with the Takedowns add-on, open and follow takedown cases.\n\nRequires a Have I Been Squatted account. You sign in the first time the agent runs a tool and choose which organization to connect. Every call is scoped to that organization and to your role in it, and the agent asks before it changes anything."
   },
   "icons": {
     "color": "color.png",
